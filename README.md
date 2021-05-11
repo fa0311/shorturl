@@ -6,7 +6,7 @@ php で動作する短縮 url メーカーです<br>
 # Installation
 
 config.php に データベースの情報を入力して Nginx に適切な Config を指定してください<br>
-以下のはサンプルです<br>
+以下はサンプルです<br>
 
 ```Nginx conf
 server {
@@ -22,3 +22,7 @@ server {
 }
 
 ```
+
+# License
+
+shorturl is under MIT License
