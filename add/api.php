@@ -1,7 +1,7 @@
 <?php
 require '../idiorm-1.5.7/idiorm.php';
 require '../php-punycode-2.1.1/Punycode.php';
-
+require '../config.php';
 
 session_start();
 if($_SESSION["time"] < time() - 300 || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADDR"]){
@@ -13,17 +13,6 @@ if($_SESSION["time"] < time() - 300 || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADDR
     echo json_encode($output);
     die();
 }
-
-
-ORM::configure('mysql:host=localhost;dbname=');
-ORM::configure('username', '');
-ORM::configure('password', '');
-ORM::configure('driver_options', [
-    PDO::MYSQL_ATTR_INIT_COMMAND       => 'SET NAMES utf8',
-    PDO::ATTR_EMULATE_PREPARES         => false,
-    PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-]);
-
 
 
 $Punycode = new TrueBV\Punycode();
