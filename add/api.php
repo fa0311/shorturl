@@ -14,39 +14,6 @@ if($_SESSION["time"] < time() - 300 || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADDR
     die();
 }
 
-
-$Punycode = new TrueBV\Punycode();
-$Punycode_domain = $Punycode->encode($_POST["domain"]);
-
-
-$where_domain = ORM::for_table('urls')
-    ->where('domain', $Punycode_domain)
-    ->find_one();
-
-if($where_domain !== false){
-    http_response_code(403);
-    $output = [
-        "status"=>"403",
-        "message"=>"失敗しました 既に使われているURLです"
-    ];
-    echo json_encode($output);
-    die();
-}
-
-
-$where_ip = ORM::for_table('urls')
-    ->where('ip', $_SERVER["REMOTE_ADDR"])
-    ->count();
-    
-if($where_ip > 30){
-    http_response_code(403);
-    $output = [
-        "status"=>"403",
-        "message"=>"失敗しました これ以上は短縮urlを発行できません"
-    ];
-    echo json_encode($output);
-    die();
-}
 if($_POST["url"] === null){
     http_response_code(403);
     $output = [
@@ -66,7 +33,52 @@ if($_POST["domain"] === null){
     echo json_encode($output);
     die();
 }
+
 if(substr_count($_POST["url"],".") == 0){
+    http_response_code(403);
+    $output = [
+        "status"=>"403",
+        "message"=>"失敗しました 正しいURLを指定してください"
+    ];
+    echo json_encode($output);
+    die();
+}
+
+$where_ip = ORM::for_table('urls')
+    ->where('ip', $_SERVER["REMOTE_ADDR"])
+    ->count();
+    
+if($where_ip > 30){
+    http_response_code(403);
+    $output = [
+        "status"=>"403",
+        "message"=>"失敗しました これ以上は短縮urlを発行できません"
+    ];
+    echo json_encode($output);
+    die();
+}
+
+
+$Punycode = new TrueBV\Punycode();
+$Punycode_domain = $Punycode->encode($_POST["domain"]);
+
+$where_domain = ORM::for_table('urls')
+    ->where('domain', $Punycode_domain)
+    ->find_one();
+
+if($where_domain !== false){
+    http_response_code(403);
+    $output = [
+        "status"=>"403",
+        "message"=>"失敗しました 既に使われているURLです"
+    ];
+    echo json_encode($output);
+    die();
+}
+
+
+$file_headers = @get_headers($_POST["url"]);
+if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
     http_response_code(403);
     $output = [
         "status"=>"403",
