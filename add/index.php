@@ -27,7 +27,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
     <form name="form">
         <div class="form">
             <p><label>希望のURL</label></p>
-            <input type="text" name="domain" value=""><span>.短.net</span>
+            <span>https://</span><input type="text" name="domain" value=""><span>.短.net</span>
         </div>
         <div class="form">
             <p><label>リダイレクト先URL</label></p>
