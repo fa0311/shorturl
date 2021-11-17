@@ -2,6 +2,7 @@
 
 php で動作する短縮 url メーカーです<br>
 ドメインを指定できるのが特徴です<br>
+[短.net](https://xn--s7y./ "短.net")<br>
 
 # Installation
 

@@ -6,9 +6,9 @@ require 'config.php';
 $where_domain = ORM::for_table('urls')
     ->where('domain', $_GET["subhost"])
     ->find_one();
-if($where_domain == false){
-    header('Location: https://xn--s7y.net/add/');
+if ($where_domain == false) {
+    header('Location: https://' . $conf["punycode_domain"] . '/add/');
     die();
 }
 
-header('Location: '.$where_domain->url);
+header('Location: ' . $where_domain->url);
