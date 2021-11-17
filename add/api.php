@@ -16,7 +16,7 @@ if ($_SESSION["time"] < time() - 300 || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADD
 $post_url = $_POST["url"];
 $post_domain = $_POST["domain"];
 
-if ($post_url === null) {
+if ($post_url === null || strlen($post_url) === 0) {
     http_response_code(403);
     $output = [
         "status" => "403",
@@ -26,7 +26,7 @@ if ($post_url === null) {
     die();
 }
 
-if ($post_domain === null) {
+if ($post_domain === null || strlen($post_domain) === 0) {
     http_response_code(403);
     $output = [
         "status" => "403",
