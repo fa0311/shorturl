@@ -48,7 +48,7 @@ if (substr_count($post_url, ".") == 0) {
 
 $where_ip = ORM::for_table('urls')
     ->where('ip', $_SERVER["REMOTE_ADDR"])
-    ->where_gte('time', date('Y-m-d H:i:s', $conf["ip_limit_sec"]))
+    ->where_gte('time', date('Y-m-d H:i:s', time() - $conf["ip_limit_sec"]))
     ->count();
 
 if ($where_ip > $conf["ip_limit"]) {
