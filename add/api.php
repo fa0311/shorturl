@@ -114,7 +114,7 @@ $insert->save();
 $output = [
     "status" => "200",
     "message" => "成功しました",
-    "output" => '<p>生成したURL: <a href="https://' . $Punycode_domain . '.xn--s7y.net" target="_blank">' . htmlspecialchars($post_domain) . '.短.net</a></p>' .
-        '<p>SNS用URL: <a href="https://' . $Punycode_domain . '.xn--s7y.net" target="_blank">' . htmlspecialchars($Punycode_domain) . '.xn--s7y.net</a></p>'
+    "output" => '<p>生成したURL: <a href="https://' . $Punycode_domain . '.' . $conf['punycode_domain'] . '" target="_blank">' . htmlspecialchars($post_domain) . '.' . $conf['domain'] . '</a></p>' .
+        '<p>SNS用URL: <a href="https://' . $Punycode_domain . '.' . $conf['punycode_domain'] . '" target="_blank">' . htmlspecialchars($Punycode_domain) . '.' . $conf['punycode_domain'] . '</a></p>'
 ];
 echo json_encode($output);
