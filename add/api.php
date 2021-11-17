@@ -48,13 +48,14 @@ if (substr_count($post_url, ".") == 0) {
 
 $where_ip = ORM::for_table('urls')
     ->where('ip', $_SERVER["REMOTE_ADDR"])
+    ->where_gte('time', date('Y-m-d H:i:s', $conf["ip_limit_sec"]))
     ->count();
 
-if ($where_ip > 30) {
+if ($where_ip > $conf["ip_limit"]) {
     http_response_code(403);
     $output = [
         "status" => "403",
-        "message" => "失敗しました これ以上は短縮urlを発行できません"
+        "message" => "失敗しました これ以上は短縮urlを発行できません しばらくしてからもう一度お試しください"
     ];
     echo json_encode($output);
     die();
