@@ -4,7 +4,7 @@ require '../php-punycode-2.1.1/Punycode.php';
 require '../config.php';
 
 session_start();
-if ($_SESSION["time"] < time() - 300 || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADDR"]) {
+if ($_SESSION["time"] < time() - $conf["session_timeout"] || $_SESSION["ip"] !=  $_SERVER["REMOTE_ADDR"]) {
     http_response_code(403);
     $output = [
         "status" => "403",
